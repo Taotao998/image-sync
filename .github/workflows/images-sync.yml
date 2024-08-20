@@ -20,7 +20,7 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v2.2.0
       with:
-        registry: registry.cn-hangzhou.aliyuncs.com
+        registry: registry.cn-beijing.aliyuncs.com
         username: 18587976197
         password: xt84777XT
         logout: false
