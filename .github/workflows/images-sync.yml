@@ -1,22 +1,29 @@
+# workflows name
 name: Sync Image to Aliyun
-
+# trigger the workflow
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+# workflow steps
 jobs:
   build:
+    # run on ubuntu-latest which is the lite-linux os rus on windows
     runs-on: ubuntu-latest
 
     steps:
+    # check-out to connect to the repo
     - name: Git pull
       uses: actions/checkout@v3
-
+    # Docker Buildx is a CLI plug-in to ouput images for diff os and diff framework
+    # @ in the end specify the version of Docker Buildx
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2.9.1
-
+    # Login to the aliyun's personal repo
+    # Build the connection between Dockerhub and aliyun's personal repo
+    # 
     - name: Login to Docker Hub
       uses: docker/login-action@v2.2.0
       with:
@@ -29,4 +36,4 @@ jobs:
       run: |
          # skopeo copy docker://docker.io/diygod/rsshub:chromium-bundled docker://registry.cn-beijing.aliyuncs.com/image-sync-for-xiangtao01/image-sync:rsshub
          skopeo copy docker://ghcr.io/browserless/chromium docker://registry.cn-beijing.aliyuncs.com/image-sync-for-xiangtao01/image-sync:browserless
-      # 使用 skopeo 工具将镜像同步到阿里云个人仓库中，使用时请自行源和目标修改仓库名称和镜像名称 作者：全栈工程师修炼指南 https://www.bilibili.com/read/cv35192993/ 出处：bilibili
+      # Learn from 全栈工程师修炼指南 https://www.bilibili.com/read/cv35192993/
